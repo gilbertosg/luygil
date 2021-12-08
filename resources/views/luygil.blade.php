@@ -114,72 +114,72 @@
 
               <div class="card-body">
                 <h4>Mayo 2021</h4>
-                <p class="card-text">Bainbridge.</p>
+                <p class="card-text">En Bainbridge dije: "Es ella.".</p>
               </div>
             </a>
             <!-- End Card -->
 
             <!-- Card -->
-            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=RJtrzPzodP8">
+            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=gyHZJi__f8o">
               <div class="card-transition-zoom-item">
                 <img class="card-img" src="./assets/img/1920x1080/junio_lg.png" alt="Image Description">
               </div>
 
               <div class="card-body">
                 <h4>Junio 2021</h4>
-                <p class="card-text">...</p>
+                <p class="card-text">Aquí se bajaron las barreras :)</p>
               </div>
             </a>
             <!-- End Card -->
 
             <!-- Card -->
-            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=RJtrzPzodP8">
+            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=i-l7LV8CR2Y">
               <div class="card-transition-zoom-item">
                 <img class="card-img" src="./assets/img/1920x1080/julio_lg.png" alt="Image Description">
               </div>
 
               <div class="card-body">
                 <h4>Julio 2021</h4>
-                <p class="card-text">...</p>
+                <p class="card-text">Una ida al zoológico inolvidable!</p>
               </div>
             </a>
             <!-- End Card -->
 
             <!-- Card -->
-            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=RJtrzPzodP8">
+            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=cUODM-LSifk">
               <div class="card-transition-zoom-item">
                 <img class="card-img" src="./assets/img/1920x1080/agosto_lg.png" alt="Image Description">
               </div>
 
               <div class="card-body">
                 <h4>Agosto 2021</h4>
-                <p class="card-text">...</p>
+                <p class="card-text">Grupo Gale eh eh!</p>
               </div>
             </a>
             <!-- End Card -->
 
             <!-- Card -->
-            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=RJtrzPzodP8">
+            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=u8Evqf47PYs">
               <div class="card-transition-zoom-item">
                 <img class="card-img" src="./assets/img/1920x1080/septiembre_lg.png" alt="Image Description">
               </div>
 
               <div class="card-body">
                 <h4>Septiembre 2021</h4>
-                <p class="card-text">...</p>
+                <p class="card-text">Septiembre de mi corazón y cumpleaños de Bu.</p>
               </div>
             </a>
             <!-- End Card -->
 
             <!-- Card -->
-            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=RJtrzPzodP8">
+            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=hZKANgsw3S4">
               <div class="card-transition-zoom-item">
                 <img class="card-img" src="./assets/img/1920x1080/octubre_lg.png" alt="Image Description">
               </div>
 
               <div class="card-body">
                 <h4>Octubre 2021</h4>
-                <p class="card-text">...</p>
+                <p class="card-text">Octubre cuidándote y amándote.</p>
               </div>
             </a>
             <!-- End Card -->
@@ -192,7 +192,7 @@
 
               <div class="card-body">
                 <h4>Noviembre 2021</h4>
-                <p class="card-text">...</p>
+                <p class="card-text">Cumpleaños y rodeado de amor</p>
               </div>
             </a>
             <!-- End Card -->
