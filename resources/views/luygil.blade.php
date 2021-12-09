@@ -52,7 +52,7 @@
             <!-- Log in -->
             <li class="nav-item ms-lg-auto">
               <a class="btn btn-ghost-dark me-2 me-lg-0" href="#">Te Amo</a>
-              <a class="btn btn-dark d-lg-none" href="./page-signup.html">A</a>
+
             </li>
             <!-- End Log in -->
 
@@ -107,7 +107,7 @@
             <!-- End Card -->
 
             <!-- Card -->
-            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=RJtrzPzodP8">
+            <a class="card card-ghost card-transition-zoom" data-fslightbox="youtube-video" href="https://www.youtube.com/watch?v=GwOSRZMEKUs">
               <div class="card-transition-zoom-item">
                 <img class="card-img" src="./assets/img/1920x1080/mayo_lg.png" alt="Image Description">
               </div>
