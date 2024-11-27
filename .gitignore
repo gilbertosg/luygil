@@ -11,5 +11,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.DS_Store
+assets/.DS_Store
+assets/img/.DS_Store
 /.idea
 /.vscode
