@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Asignación de Mesas — Lu y Gil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="Busca tu mesa para la boda de Lu y Gil">
+    <link rel="canonical" href="https://boda.luygil.com" />
+    <style>
+        :root{
+            --bg1:#e8f4f8;
+            --bg2:#f0f9f4;
+            --accent:#2563eb;
+            --secondary:#059669;
+            --muted:#4b5563;
+            --card:#ffffff;
+            --card-shadow:rgba(37, 99, 235, 0.1);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        html,body{
+            height:100vh;
+            margin:0;
+            font-family:Inter,system-ui,Arial,sans-serif;
+            background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
+            color:#1f2937;
+            overflow-x:hidden;
+        }
+        .wrap{
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:16px;
+            width:100%;
+        }
+        header{
+            width:100%;
+            max-width:100%;
+            text-align:center;
+            margin-bottom:20px;
+            padding:0 16px;
+        }
+        header h1{
+            font-family:'Playfair Display', serif;
+            margin:12px 0;
+            font-size:clamp(24px, 6vw, 36px);
+            color:var(--accent);
+            font-weight:600;
+        }
+        header p{
+            margin:0;
+            color:var(--muted);
+            font-size:clamp(14px, 3.5vw, 16px);
+            line-height:1.4;
+        }
+        .card{
+            background:var(--card);
+            width:100%;
+            max-width:100%;
+            border-radius:16px;
+            padding:clamp(16px, 4vw, 24px);
+            box-shadow:0 8px 25px var(--card-shadow);
+            margin-bottom:20px;
+            flex:1;
+            min-height:calc(100vh - 200px);
+        }
+        .search-section{
+            text-align:center;
+            width:100%;
+            margin:0 auto;
+        }
+        .search-section > strong {
+            font-size:clamp(18px, 4vw, 22px);
+            color:var(--accent);
+            display:block;
+            margin-bottom:12px;
+        }
+        .search{
+            display:flex;
+            gap:8px;
+            margin:16px 0;
+            width:100%;
+            max-width:500px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        input[type="search"]{
+            flex:1;
+            padding:16px 18px;
+            border-radius:12px;
+            border:2px solid #e5e7eb;
+            font-size:clamp(16px, 4vw, 18px);
+            background:#fafafa;
+            transition:all 0.3s ease;
+            min-height:56px;
+        }
+        input[type="search"]:focus{
+            outline:none;
+            border-color:var(--accent);
+            background:#ffffff;
+            box-shadow:0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        button{
+            padding:16px 20px;
+            border-radius:12px;
+            border:0;
+            background:linear-gradient(135deg,var(--accent) 0%,var(--secondary) 100%);
+            color:#fff;
+            font-weight:600;
+            cursor:pointer;
+            font-size:clamp(14px, 3.5vw, 16px);
+            transition:transform 0.2s ease;
+            min-height:56px;
+            white-space:nowrap;
+        }
+        button:hover{
+            transform:translateY(-1px);
+        }
+        button:active{
+            transform:translateY(0);
+        }
+        .result{
+            margin-top:20px;
+            padding:20px;
+            border-radius:12px;
+            background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:16px;
+            border:2px solid var(--bg1);
+            flex-wrap:wrap;
+        }
+        .name{
+            font-size:clamp(16px, 4vw, 20px);
+            font-weight:600;
+            color:var(--accent);
+        }
+        .mesa{
+            background:linear-gradient(135deg,var(--secondary) 0%,#047857 100%);
+            color:#ffffff;
+            padding:12px 20px;
+            border-radius:25px;
+            font-weight:700;
+            font-size:clamp(14px, 3.5vw, 16px);
+            white-space:nowrap;
+            box-shadow:0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+        .note{
+            font-size:clamp(12px, 3vw, 14px);
+            color:var(--muted);
+            margin-top:12px;
+            line-height:1.4;
+        }
+        ul.suggestions{
+            list-style:none;
+            padding:0;
+            margin:16px 0 0 0;
+            max-height:300px;
+            overflow:auto;
+            width:100%;
+        }
+        ul.suggestions li{
+            padding:16px;
+            border-radius:10px;
+            margin-bottom:8px;
+            background:#ffffff;
+            border:1px solid var(--bg1);
+            cursor:pointer;
+            font-size:clamp(14px, 3.5vw, 16px);
+            transition:all 0.2s ease;
+        }
+        ul.suggestions li:hover{
+            background:var(--bg1);
+            border-color:var(--accent);
+            transform:translateY(-1px);
+        }
+        footer{
+            margin-top:16px;
+            color:var(--muted);
+            font-size:clamp(11px, 2.5vw, 13px);
+            text-align:center;
+            padding:16px;
+        }
+        
+        /* Mobile optimizations */
+        @media(max-width:640px){
+            .wrap{
+                padding:12px;
+            }
+            .search{
+                flex-direction:column;
+                gap:12px;
+            }
+            .search button{
+                margin-top:0;
+                width:100%;
+            }
+            .result{
+                flex-direction:column;
+                text-align:center;
+                gap:12px;
+            }
+            .card{
+                border-radius:12px;
+                min-height:calc(100vh - 150px);
+            }
+            header{
+                margin-bottom:16px;
+            }
+        }
+        
+        /* Very small screens */
+        @media(max-width:380px){
+            .wrap{
+                padding:8px;
+            }
+            .card{
+                padding:16px;
+                border-radius:8px;
+            }
+        }
+        
+        /* Landscape phones */
+        @media(max-height:500px) and (orientation:landscape){
+            .card{
+                min-height:auto;
+            }
+            .wrap{
+                min-height:auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <h1>Lu y Gil ♥</h1>
+            <p>Busca tu nombre y encuentra tu mesa — Bienvenid@ a nuestra boda</p>
+        </header>
+
+        <div class="card">
+            <div class="search-section">
+                <strong>Encuentra tu mesa</strong>
+                <div class="note">Escribe tu nombre para encontrar tu mesa asignada.</div>
+
+                <div class="search">
+                    <input id="search" type="search" placeholder="Escribe tu nombre (ej. Luisa)" autocomplete="off" />
+                    <button id="btnBuscar" aria-label="Buscar">Buscar</button>
+                </div>
+
+                <div class="note">Consejo: escribe algunas letras para encontrar tu nombre. La búsqueda no distingue mayúsculas ni tildes.</div>
+            </div>
+
+            <div id="output" style="margin-top:14px" aria-live="polite"></div>
+            <ul id="suggestions" class="suggestions" aria-live="polite"></ul>
+        </div>
+
+        <footer>Gracias por venir — Disfruten la noche</footer>
+    </div>
+
+    <script>
+    (function(){
+        const input = document.getElementById('search');
+        const btn = document.getElementById('btnBuscar');
+        const output = document.getElementById('output');
+        const suggestions = document.getElementById('suggestions');
+        
+        // Datos embebidos directamente desde tu CSV
+        const guestData = [
+            {name: "Davichon", mesa: "Mesa 1"},
+            {name: "Pame", mesa: "Mesa 1"},
+            {name: "Valedor", mesa: "Mesa 1"},
+            {name: "Valerio (Luisa)", mesa: "Mesa 1"},
+            {name: "Almohada", mesa: "Mesa 1"},
+            {name: "Almohada 2", mesa: "Mesa 1"},
+            {name: "Damian", mesa: "Mesa 1"},
+            {name: "Mariana", mesa: "Mesa 1"},
+            {name: "Isaac", mesa: "Mesa 1"},
+            {name: "Den", mesa: "Mesa 1"},
+            {name: "Paola", mesa: "Mesa 2"},
+            {name: "Cheche", mesa: "Mesa 2"},
+            {name: "Xavi Viclhis", mesa: "Mesa 2"},
+            {name: "Cami Murchio", mesa: "Mesa 2"},
+            {name: "Ale Lugo", mesa: "Mesa 2"},
+            {name: "Lucia Rosas", mesa: "Mesa 2"},
+            {name: "Dany", mesa: "Mesa 2"},
+            {name: "Alex", mesa: "Mesa 2"},
+            {name: "Calu", mesa: "Mesa 3"},
+            {name: "Xime", mesa: "Mesa 3"},
+            {name: "Pato", mesa: "Mesa 3"},
+            {name: "Eve", mesa: "Mesa 3"},
+            {name: "Itzel", mesa: "Mesa 3"},
+            {name: "Yayo", mesa: "Mesa 3"},
+            {name: "Sara", mesa: "Mesa 3"},
+            {name: "Mau", mesa: "Mesa 3"},
+            {name: "Anette", mesa: "Mesa 3"},
+            {name: "Oscar Bravo", mesa: "Mesa 3"},
+            {name: "Brillas", mesa: "Mesa 4"},
+            {name: "Luis", mesa: "Mesa 4"},
+            {name: "Gissele", mesa: "Mesa 4"},
+            {name: "Sandy", mesa: "Mesa 4"},
+            {name: "Sean", mesa: "Mesa 4"},
+            {name: "Josmo", mesa: "Mesa 4"},
+            {name: "Dominic", mesa: "Mesa 4"},
+            {name: "Adolfo", mesa: "Mesa 4"},
+            {name: "Caro", mesa: "Mesa 4"},
+            {name: "Edgar Reynoso (hijo)", mesa: "Mesa 5"},
+            {name: "Natalia", mesa: "Mesa 5"},
+            {name: "Luis Antonio", mesa: "Mesa 5"},
+            {name: "Regina", mesa: "Mesa 5"},
+            {name: "Sebastian", mesa: "Mesa 5"},
+            {name: "Asali", mesa: "Mesa 5"},
+            {name: "Antonio", mesa: "Mesa 5"},
+            {name: "Antonio 2", mesa: "Mesa 5"},
+            {name: "Esperanza", mesa: "Mesa 5"},
+            {name: "Jose Luis", mesa: "Mesa 5"},
+            {name: "Pato", mesa: "Mesa 6"},
+            {name: "Laura Romo", mesa: "Mesa 6"},
+            {name: "Renatha", mesa: "Mesa 6"},
+            {name: "Santi", mesa: "Mesa 6"},
+            {name: "Juan Miguel", mesa: "Mesa 6"},
+            {name: "Gerry", mesa: "Mesa 6"},
+            {name: "Gerry +1", mesa: "Mesa 6"},
+            {name: "Dani Lugo", mesa: "Mesa 6"},
+            {name: "Crouch", mesa: "Mesa 6"},
+            {name: "Diego Patiño", mesa: "Mesa 7"},
+            {name: "María Julia", mesa: "Mesa 7"},
+            {name: "Canales", mesa: "Mesa 7"},
+            {name: "Samantha", mesa: "Mesa 7"},
+            {name: "Alejandro Mosqueda", mesa: "Mesa 7"},
+            {name: "Almudena", mesa: "Mesa 7"},
+            {name: "Shon", mesa: "Mesa 7"},
+            {name: "Bola", mesa: "Mesa 7"},
+            {name: "Wicho", mesa: "Mesa 7"},
+            {name: "Danae Castañon", mesa: "Mesa 7"},
+            {name: "Lolis", mesa: "Mesa 8"},
+            {name: "Jimena", mesa: "Mesa 8"},
+            {name: "Andrea", mesa: "Mesa 8"},
+            {name: "Juli", mesa: "Mesa 8"},
+            {name: "Sebas", mesa: "Mesa 8"},
+            {name: "Berenice", mesa: "Mesa 8"},
+            {name: "Gelines", mesa: "Mesa 8"},
+            {name: "Juan Carlos", mesa: "Mesa 8"},
+            {name: "Bolaños", mesa: "Mesa 8"},
+            {name: "Armando", mesa: "Mesa 8"},
+            {name: "Frakenberger", mesa: "Mesa 8"},
+            {name: "Jose Antonio Garcia Loyola", mesa: "Mesa 9"},
+            {name: "Jose Antonio Garcia Loyola 2", mesa: "Mesa 9"},
+            {name: "Fernando Del Villar", mesa: "Mesa 9"},
+            {name: "Fernando Del Villar 2", mesa: "Mesa 9"},
+            {name: "Mario Lazo", mesa: "Mesa 9"},
+            {name: "David Jesus", mesa: "Mesa 9"},
+            {name: "Juan Manuel Castañon", mesa: "Mesa 9"},
+            {name: "Rosario Escobar", mesa: "Mesa 9"},
+            {name: "Juan Antonio Silva", mesa: "Mesa 9"},
+            {name: "Consuelo Espinoza", mesa: "Mesa 9"},
+            {name: "Rafael Loret de Mola", mesa: "Mesa 9"},
+            {name: "Oralin", mesa: "Mesa 10"},
+            {name: "Benjamin", mesa: "Mesa 10"},
+            {name: "Paty", mesa: "Mesa 10"},
+            {name: "Luis", mesa: "Mesa 10"},
+            {name: "Clau", mesa: "Mesa 10"},
+            {name: "Alex", mesa: "Mesa 10"},
+            {name: "Ramon", mesa: "Mesa 10"},
+            {name: "Lucy", mesa: "Mesa 10"},
+            {name: "Paty Palafox", mesa: "Mesa 10"},
+            {name: "Luis", mesa: "Mesa 10"},
+            {name: "Enrique", mesa: "Mesa 11"},
+            {name: "Andrea", mesa: "Mesa 11"},
+            {name: "Gabo", mesa: "Mesa 11"},
+            {name: "Mayela Gonzalez", mesa: "Mesa 11"},
+            {name: "Mayela Gonzalez 2", mesa: "Mesa 11"},
+            {name: "Silvia Gonzalez", mesa: "Mesa 11"},
+            {name: "Victor Amaro", mesa: "Mesa 11"},
+            {name: "Gabriela Amaro", mesa: "Mesa 11"},
+            {name: "Armando Gonzalez", mesa: "Mesa 11"},
+            {name: "Josue Gonzalez", mesa: "Mesa 11"},
+            {name: "Hortensia Sordo", mesa: "Mesa 12"},
+            {name: "Anselmo Alonso", mesa: "Mesa 12"},
+            {name: "Guadalupe Andres", mesa: "Mesa 12"},
+            {name: "Viviana Cocimano", mesa: "Mesa 12"},
+            {name: "Hector Scarinci", mesa: "Mesa 12"},
+            {name: "Andrea Saldaña", mesa: "Mesa 12"},
+            {name: "Laura Reynoso", mesa: "Mesa 12"},
+            {name: "Edgar Reynoso", mesa: "Mesa 12"},
+            {name: "Leticia Gonzalez", mesa: "Mesa 12"},
+            {name: "Lorenzo Silva", mesa: "Mesa 12"},
+            {name: "Seymer Anronio", mesa: "Mesa 13"},
+            {name: "Eugenia Leal", mesa: "Mesa 13"},
+            {name: "James Murphree", mesa: "Mesa 13"},
+            {name: "Sarah Murphree", mesa: "Mesa 13"},
+            {name: "TJ Norris", mesa: "Mesa 13"},
+            {name: "Jack Capombasis", mesa: "Mesa 13"},
+            {name: "Hoda", mesa: "Mesa 13"},
+            {name: "Shervin", mesa: "Mesa 13"},
+            {name: "Santiago Harispuru", mesa: "Mesa 13"},
+            {name: "Saf", mesa: "Mesa 13"},
+            {name: "Isabel Botero", mesa: "Mesa 14"},
+            {name: "Nelson Lopez", mesa: "Mesa 14"},
+            {name: "Padre Arturo", mesa: "Mesa 14"},
+            {name: "Miriam", mesa: "Mesa 14"},
+            {name: "Yolanda", mesa: "Mesa 14"},
+            {name: "Carmen", mesa: "Mesa 14"},
+            {name: "Pedro", mesa: "Mesa 14"},
+            {name: "Marcela", mesa: "Mesa 15"},
+            {name: "Angela", mesa: "Mesa 15"},
+            {name: "Gina", mesa: "Mesa 15"},
+            {name: "Angelica", mesa: "Mesa 15"},
+            {name: "Mary Luz", mesa: "Mesa 15"},
+            {name: "Mafe", mesa: "Mesa 15"},
+            {name: "Tia Elsa", mesa: "Mesa 15"},
+            {name: "Tia Estella", mesa: "Mesa 15"},
+            {name: "Melissa", mesa: "Mesa 15"},
+            {name: "Maria Paula", mesa: "Mesa 15"},
+            {name: "Jessica", mesa: "Mesa 15"},
+            {name: "Karol", mesa: "Mesa 16"},
+            {name: "Diego Alejandro", mesa: "Mesa 16"},
+            {name: "Maria Alejandra", mesa: "Mesa 16"},
+            {name: "Manuela", mesa: "Mesa 16"},
+            {name: "Cristina", mesa: "Mesa 16"},
+            {name: "Mafe Rodriguez", mesa: "Mesa 16"},
+            {name: "Nico Tarazona", mesa: "Mesa 16"},
+            {name: "Arturo", mesa: "Mesa 16"},
+            {name: "Adriana", mesa: "Mesa 16"}
+        ];
+
+        // Normaliza acentos y mayúsculas para buscar
+        function normalizeText(s){
+            return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
+
+        // Preparar datos con keys normalizadas
+        const guests = guestData.map(g => ({
+            name: g.name,
+            mesa: g.mesa,
+            key: normalizeText(g.name)
+        }));
+
+        function findMatches(q){
+            const s = normalizeText(q.trim());
+            if(!s) return [];
+            return guests.filter(g => g.key.includes(s));
+        }
+
+        function showResults(list, q){
+            suggestions.innerHTML = '';
+            output.innerHTML = '';
+            if(!q || q.trim().length < 1) return;
+
+            if(list.length === 0){
+                output.innerHTML = '<div class="result"><div class="name">No se encontró el nombre</div><div class="mesa">—</div></div>';
+                return;
+            }
+
+            // exact match by normalized key
+            const exact = list.find(g => g.key === normalizeText(q));
+            if(exact){
+                output.innerHTML = renderFound(exact);
+                return;
+            }
+
+            // si hay varias coincidencias, mostrar sugerencias
+            list.slice(0,50).forEach(g=>{
+                const li = document.createElement('li');
+                li.textContent = g.name + ' • ' + g.mesa;
+                li.onclick = ()=> { input.value = g.name; suggestions.innerHTML=''; output.innerHTML = renderFound(g); window.scrollTo({top:0,behavior:'smooth'}); };
+                suggestions.appendChild(li);
+            });
+
+            output.innerHTML = '<div class="note">Se encontraron ' + list.length + ' coincidencias. Toca tu nombre para ver la mesa.</div>';
+        }
+
+        function renderFound(g){
+            return '<div class="result"><div><div class="name">Hola, '+escapeHtml(g.name)+'</div><div class="note">Tu mesa asignada es:</div></div><div class="mesa">'+escapeHtml(g.mesa)+'</div></div>';
+        }
+
+        function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+        btn.addEventListener('click', ()=> {
+            const q = input.value;
+            const matches = findMatches(q);
+            showResults(matches, q);
+        });
+
+        input.addEventListener('input', ()=> {
+            const q = input.value;
+            if(q.trim().length < 1) { suggestions.innerHTML=''; output.innerHTML=''; return; }
+            const matches = findMatches(q);
+            showResults(matches, q);
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') btn.click();
+        });
+
+        function getParam(name){
+            const params = new URLSearchParams(location.search);
+            return params.get(name);
+        }
+
+        function checkQueryParam(){
+            const q = getParam('name') || getParam('q');
+            if(q){
+                input.value = q;
+                const matches = findMatches(q);
+                showResults(matches, q);
+            }
+        }
+
+        // Initialize
+        checkQueryParam();
+    })();
+    </script>
+</body>
+</html>
